@@ -9,3 +9,10 @@ Now, in order to predict, whether the customer would be interested in Vehicle in
 
 This project was done as a part of the Hackathon we participated in Analytics Vidhya.
 Link : https://datahack.analyticsvidhya.com/contest/janatahack-cross-sell-prediction/#ProblemStatement
+
+Methodology:
+1. Did some basic data cleaning (removed the id column, set the correct data types etc)
+2. Tried different ways of converting the region and sales channels to categories. Since there were 155 sales channels and 50 regions, creating dummies would not have worked. We tried to manually create  bins for these channels based on the response rate, but the final results were unsatisfactory. Eventually, we settled on WOE encoding, which gave some good results.
+3. Created new variables by interacting certain other binary variables. This eventually helped increase the ROC AUC score by 2 percentage points.
+4. Since the dataset was heavily imbalanced, we used the imblearn package to first balance it. Oversampling and artificial oversampling methods (like SMOTE and ADASYN) did not work at all, but undersampling as well as Balanced Bagging Classifier worked well. 
+5. The best solution was that of XGBoost on the undersampled dataset. The final score was 0.85 (***The winner's score was 0.86***) 
